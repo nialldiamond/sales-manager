@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
       results.upserted += rows.length;
     }
 
-    cursor = response.meta?.cursor?.next ?? undefined;
+    cursor = response.has_more ? response.last_id : undefined;
   } while (cursor);
 
   return NextResponse.json(results);

@@ -68,13 +68,8 @@ export interface EvoxAccountManager {
 
 export interface EvoxListResponse<T> {
   data: T[];
-  meta?: {
-    cursor?: {
-      current: number;
-      next: number | null;
-      count: number;
-    };
-  };
+  has_more: boolean;
+  last_id: number;
 }
 
 export interface AccountManagerProfile {
