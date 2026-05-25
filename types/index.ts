@@ -9,7 +9,7 @@ export interface EvoxCustomer {
   company_number: string | null;
   parent_id: number | null;
   enabled: boolean;
-  account_manager: number | null;
+  account_manager: { id: number; name: string; email: string | null } | null;
   seller_reference: string | null;
   credit_account_status: number;
   rewards_status: number;

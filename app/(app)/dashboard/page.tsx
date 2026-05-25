@@ -14,7 +14,7 @@ async function getAllCustomers(accountManagerId: number): Promise<EvoxCustomer[]
   for (;;) {
     const res = await listCustomers({ limit: 100, from_id: fromId });
     if (!res.data || res.data.length === 0) break;
-    const mine = res.data.filter(c => c.account_manager === accountManagerId);
+    const mine = res.data.filter(c => c.account_manager?.id === accountManagerId);
     customers.push(...mine);
     const next = res.meta?.cursor?.next;
     if (!next) break;
