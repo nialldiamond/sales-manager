@@ -93,6 +93,7 @@ export async function createOrder(payload: CreateOrderPayload): Promise<EvoxOrde
 
 export async function listAccountManagers(params?: {
   limit?: number;
+  from_id?: number;
   ids?: string;
   name?: string;
   email?: string;
