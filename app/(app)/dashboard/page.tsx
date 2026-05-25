@@ -9,15 +9,13 @@ async function getAllCustomers(accountManagerId: number): Promise<EvoxCustomer[]
   const customers: EvoxCustomer[] = [];
   let fromId: number | undefined;
 
-  // Paginate up to 500 customers
-  for (let i = 0; i < 5; i++) {
-    const res = await listCustomers({
-      account_manager: accountManagerId,
-      limit: 100,
-      from_id: fromId,
-    });
+  // EvoX does not support server-side account_manager filtering, so we paginate
+  // all customers and post-filter by the account_manager field on each record.
+  for (;;) {
+    const res = await listCustomers({ limit: 100, from_id: fromId });
     if (!res.data || res.data.length === 0) break;
-    customers.push(...res.data);
+    const mine = res.data.filter(c => c.account_manager === accountManagerId);
+    customers.push(...mine);
     const next = res.meta?.cursor?.next;
     if (!next) break;
     fromId = next;
